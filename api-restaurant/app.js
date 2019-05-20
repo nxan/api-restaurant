@@ -8,6 +8,7 @@ const desks = require('./app/routes/desk.route');
 const groupFood = require('./app/routes/group_food.route');
 const food = require('./app/routes/food.route');
 const order = require('./app/routes/order.route');
+const orderDetail = require('./app/routes/order_detail.route');
 
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -17,6 +18,7 @@ app.use('/desks', desks);
 app.use('/group_food', groupFood);
 app.use('/food', food);
 app.use('/order', order);
+app.use('/orderdetail', orderDetail);
 
 app.use((req, res, next) => {
     const err = new Error('Not found!');

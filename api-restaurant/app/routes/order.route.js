@@ -8,5 +8,7 @@ router.route('/')
     .put(orderController.update)
     .post(orderController.create);
 
+router.route('/pay')
+    .put(orderController.placeOrder);
 
 module.exports = router

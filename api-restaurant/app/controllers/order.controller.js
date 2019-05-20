@@ -39,7 +39,6 @@ module.exports = {
     update: (req, res, next) => {
         var data = req.body;
         if(data) {
-
             if(!data.SOHOADON) throw new Error("SOHOADON no provided");
             var sql = "UPDATE BH_tbd_BanHangLyLich SET ";
 
@@ -71,6 +70,28 @@ module.exports = {
                 console.log(data);
                 res.status(201);
                 res.json( {message: 'Update success!'} );
+            })
+            .catch(err => {
+                next(err);
+            });
+    },
+
+    placeOrder: (req, res, next) => {
+        var data = req.body;
+        if(data) {
+            if(!data.SOHOADON) throw new Error("SOHOADON no provided");
+            var sql = "UPDATE BH_tbd_BanHangLyLich SET ";
+            sql += "INHOADON = " + 1 + ",";
+            sql += " GIORA = '" + time + "',";
+            sql += " KETTHUC = " + 1;
+            sql += " WHERE SOHOADON = " + data.SOHOADON;
+            console.log(sql);
+        }
+        db.query(sql)
+            .then(results => {
+                console.log(data);
+                res.status(201);
+                res.json( {message: 'Pay success!'} );
             })
             .catch(err => {
                 next(err);
