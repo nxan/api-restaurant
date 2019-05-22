@@ -3,8 +3,10 @@ const router = express.Router();
 
 const desksController = require('../controllers/desk.controller');
 
-router.route('/:place')
+router.route('/')
     .get(desksController.findAll);
 
+router.route('/:place')
+    .get(desksController.findByPlace);
 
 module.exports = router
