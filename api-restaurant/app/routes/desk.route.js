@@ -3,7 +3,7 @@ const router = express.Router();
 
 const desksController = require('../controllers/desk.controller');
 
-router.route('/')
+router.route('/:place')
     .get(desksController.findAll);
 
 
