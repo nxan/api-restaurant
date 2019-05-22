@@ -17,8 +17,8 @@ module.exports = {
     create: (req, res, next) => {
         var data = req.body
         let sql = "INSERT INTO BH_tbd_BanHangChiTiet VALUES ";
-        sql += util.format("(%d, '%s', %d, %d, %d)", 
-                data.IDBanChiTiet, data.SOHOADON, data.MaMon, data.SoLuongTra, data.SoLuong);
+        sql += util.format("('%s', %d, %d, %d)", 
+                data.SOHOADON, data.MaMon, data.SoLuongTra, data.SoLuong);
         db.query(sql, [data])
             .then(results => {
                 console.log(data);
