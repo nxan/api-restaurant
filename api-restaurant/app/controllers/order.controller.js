@@ -12,7 +12,7 @@ module.exports = {
         let query = db.query(sql)
             .then(results => {
                 console.log(results);
-                res.status(200).json(results.recordset);
+                res.status(200).json(results);
             })
             .catch(err => {
                 next(err);
@@ -22,8 +22,8 @@ module.exports = {
     create: (req, res, next) => {
         var data = req.body
         let sql = "INSERT INTO BH_tbd_BanHangLyLich VALUES ";
-        sql += util.format("('%s', '%s', %d, %d, '%s', '%s', %d, '%s', '%s', '%s', '%s', %d, %d)", 
-                data.SOHOADON, dateTime, data.INHOADON, data.MaBan, time, data.GIORA, null, data.TRANGTHAI, data.MaNhanVienBan, dateTime, 
+        sql += util.format("('%s', %d, %d, N'%s', N'%s', %d, N'%s', N'%s', '%s', N'%s', %d, %d)", 
+                date, data.INHOADON, data.MaBan, data.GIOVAO, data.GIORA, null, data.TRANGTHAI, data.MaNhanVienBan, date, 
                 data.HostName, data.MaGiam, data.Huy);
         db.query(sql, [data])
             .then(results => {

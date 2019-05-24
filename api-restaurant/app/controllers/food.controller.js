@@ -6,7 +6,21 @@ module.exports = {
         let query = db.query(sql)
             .then(results => {
                 console.log(results);
-                res.status(200).json(results.recordset);
+                res.status(200).json(results);
+            })
+            .catch(err => {
+                next(err);
+            });
+    },
+
+    findByGroup: (req, res, next) => {
+        var group = req.params.group;
+        let sql = "SELECT * FROM tbl_MonAn WHERE IDNhom = " + group;
+        console.log(sql);
+        let query = db.query(sql)
+            .then(results => {
+                console.log(results);
+                res.status(200).json(results);
             })
             .catch(err => {
                 next(err);

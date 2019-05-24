@@ -7,7 +7,7 @@ module.exports = {
         let query = db.query(sql)
             .then(results => {
                 console.log(results);
-                res.status(200).json(results.recordset);
+                res.status(200).json(results);
             })
             .catch(err => {
                 next(err);
