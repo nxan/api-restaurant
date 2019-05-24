@@ -7,4 +7,6 @@ router.route('/')
     .post(orderDetailController.create)
     .get(orderDetailController.findAll);
 
+router.route('/getOrderByDeskNotEmpty/:orderId')
+    .get(orderDetailController.getOrderByDesk);
 module.exports = router

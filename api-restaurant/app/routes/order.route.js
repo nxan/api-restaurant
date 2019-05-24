@@ -11,4 +11,10 @@ router.route('/')
 router.route('/pay')
     .put(orderController.placeOrder);
 
+router.route('/checkDesk/:deskId')
+    .get(orderController.findDeskEmpty);
+
+router.route('/countFoodDesk/:deskId')   
+    .get(orderController.countFoodDesk);
+
 module.exports = router

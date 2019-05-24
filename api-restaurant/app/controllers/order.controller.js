@@ -22,9 +22,9 @@ module.exports = {
     create: (req, res, next) => {
         var data = req.body
         let sql = "INSERT INTO BH_tbd_BanHangLyLich VALUES ";
-        sql += util.format("('%s', %d, %d, N'%s', N'%s', %d, N'%s', N'%s', '%s', N'%s', %d, %d)", 
+        sql += util.format("('%s', %d, %d, N'%s', N'%s', %d, N'%s', N'%s', '%s', N'%s', %d, %d, %d)", 
                 date, data.INHOADON, data.MaBan, data.GIOVAO, data.GIORA, null, data.TRANGTHAI, data.MaNhanVienBan, date, 
-                data.HostName, data.MaGiam, data.Huy);
+                data.HostName, data.MaGiam, data.Huy, data.TongMon);
         db.query(sql, [data])
             .then(results => {
                 console.log(data);
@@ -82,7 +82,7 @@ module.exports = {
             if(!data.SOHOADON) throw new Error("SOHOADON no provided");
             var sql = "UPDATE BH_tbd_BanHangLyLich SET ";
             sql += "INHOADON = " + 1 + ",";
-            sql += " GIORA = '" + time + "',";
+            sql += " GIORA = '" + data.GIORA + "',";
             sql += " KETTHUC = " + 1;
             sql += " WHERE SOHOADON = " + data.SOHOADON;
             console.log(sql);
@@ -96,5 +96,34 @@ module.exports = {
             .catch(err => {
                 next(err);
             });
-    }
+    },
+    
+    findDeskEmpty: (req, res, next) => {
+        var deskId = req.params.deskId;
+        let sql = "SELECT SOHOADON, KETTHUC FROM BH_tbd_BanHangLyLich WHERE MaBan = " + deskId;
+        console.log(sql)
+        let query = db.query(sql)
+            .then(results => {
+                console.log(results);
+                res.status(200).json(results);
+            })
+            .catch(err => {
+                next(err);
+            });
+    },
+
+    countFoodDesk: (req, res, next) => {
+        var deskId = req.params.deskId;
+        let sql = "SELECT BH_tbd_BanHangLyLich.TongMon FROM BH_tbd_BanHangLyLich WHERE MaBan = " + deskId;
+        console.log(sql)
+        let query = db.query(sql)
+            .then(results => {
+                console.log(results);
+                res.status(200).json(results);
+            })
+            .catch(err => {
+                next(err);
+            });
+    },
+
 }   

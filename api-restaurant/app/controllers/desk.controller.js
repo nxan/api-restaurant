@@ -29,4 +29,23 @@ module.exports = {
             });
     },
 
+    
+    updateDeskFull: (req, res, next) => {
+        var data = req.body;
+        var deskId = req.params.deskId;
+        var sql = "UPDATE tbl_Ban SET ";
+        sql += "HienThi = " + 1 + ", TongMon = " + data.TongMon;
+        sql += " WHERE MaBan = " + deskId;
+        console.log(sql);
+        
+        db.query(sql)
+            .then(results => {
+                res.status(201);
+                res.json( {message: 'Update success!'} );
+            })
+            .catch(err => {
+                next(err);
+            });
+    },
+
 }   

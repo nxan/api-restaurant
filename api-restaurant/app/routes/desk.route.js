@@ -9,4 +9,8 @@ router.route('/')
 router.route('/:place')
     .get(desksController.findByPlace);
 
+router.route('/updateDeskFull/:deskId')
+    .put(desksController.updateDeskFull);
+
+
 module.exports = router
