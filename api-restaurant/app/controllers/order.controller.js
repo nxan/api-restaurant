@@ -83,7 +83,8 @@ module.exports = {
             var sql = "UPDATE BH_tbd_BanHangLyLich SET ";
             sql += "INHOADON = " + 1 + ",";
             sql += " GIORA = '" + data.GIORA + "',";
-            sql += " KETTHUC = " + 1;
+            sql += " KETTHUC = " + 1 + ",";
+            sql += " TRANGTHAI = '" + "Trống" + "'";
             sql += " WHERE SOHOADON = " + data.SOHOADON;
             console.log(sql);
         }
@@ -110,6 +111,22 @@ module.exports = {
             .catch(err => {
                 next(err);
             });
-    },    
+    },   
+    
+    updateQuantityFood: (req, res, next) => {
+        var data = req.body;
+        var sql = "UPDATE BH_tbd_BanHangLyLich SET ";
+        sql += "TongMon = " + data.TongMon;
+        sql += " WHERE SOHOADON = " + data.SOHOADON;
+        console.log(sql);        
+        db.query(sql)
+            .then(results => {
+                res.status(201);
+                res.json( {message: 'Update success!'} );
+            })
+            .catch(err => {
+                next(err);
+            });
+    },
 
 }   

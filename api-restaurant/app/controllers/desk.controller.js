@@ -38,7 +38,25 @@ module.exports = {
         var data = req.body;
         var deskId = req.params.deskId;
         var sql = "UPDATE tbl_Ban SET ";
-        sql += "HienThi = " + 1 + ", TongMon = " + data.TongMon + ", GIOVAO = '" + time.toString() + "'"
+        sql += "HienThi = " + 1 + ", TongMon = " + data.TongMon + ", GIOVAO = '" + data.GIOVAO + "'"
+        sql += " WHERE MaBan = " + deskId;
+        console.log(sql);
+        
+        db.query(sql)
+            .then(results => {
+                res.status(201);
+                res.json( {message: 'Update success!'} );
+            })
+            .catch(err => {
+                next(err);
+            });
+    },
+
+    updateDeskEmpty: (req, res, next) => {
+        var data = req.body;
+        var deskId = req.params.deskId;
+        var sql = "UPDATE tbl_Ban SET ";
+        sql += "HienThi = " + 0 + ", TongMon = " + 0 + ", GIOVAO = '" + "Trống" + "'"
         sql += " WHERE MaBan = " + deskId;
         console.log(sql);
         

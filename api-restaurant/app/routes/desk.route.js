@@ -12,5 +12,8 @@ router.route('/:place')
 router.route('/updateDeskHasPeople/:deskId')
     .put(desksController.updateDeskFull);
 
+router.route('/updateDeskEmpty/:deskId')
+    .put(desksController.updateDeskEmpty);
+
 
 module.exports = router

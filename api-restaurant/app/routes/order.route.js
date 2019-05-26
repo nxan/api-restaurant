@@ -14,5 +14,8 @@ router.route('/pay')
 router.route('/checkDesk/:deskId')
     .get(orderController.checkDeskEnable);
 
+router.route('/updateQuantityFood')
+    .put(orderController.updateQuantityFood);
+
 
 module.exports = router

@@ -33,7 +33,7 @@ module.exports = {
     getOrderDesk: (req, res, next) => {
         var deskId = req.params.deskId;
         let sql = 'SELECT BH_tbd_BanHangChiTiet.*, tbl_MonAn.TenMon, tbl_MonAn.DonGiaBan FROM BH_tbd_BanHangChiTiet JOIN tbl_MonAn on tbl_MonAn.MaMon = BH_tbd_BanHangChiTiet.MaMon ';
-        sql += 'WHERE SOHOADON IN (SELECT SOHOADON FROM BH_tbd_BanHangLyLich WHERE MaBan = ' + deskId + ')';
+        sql += 'WHERE SOHOADON IN (SELECT SOHOADON FROM BH_tbd_BanHangLyLich WHERE KETTHUC = 0 AND MaBan = ' + deskId + ')';
         console.log(sql)
         let query = db.query(sql)
             .then(results => {
@@ -45,5 +45,20 @@ module.exports = {
             });
     },
 
+    updateFoodByOrderId: (req, res, next) => {
+        var data = req.body;
+        var sql = "UPDATE BH_tbd_BanHangChiTiet SET ";
+        sql += "SoLuong = " + data.SoLuong;
+        sql += " WHERE MaMon = " + data.MaMon + " AND SOHOADON = " + data.SOHOADON;
+        console.log(sql);        
+        db.query(sql)
+            .then(results => {
+                res.status(201);
+                res.json( {message: 'Update success!'} );
+            })
+            .catch(err => {
+                next(err);
+            });
+    },
     
 }   
