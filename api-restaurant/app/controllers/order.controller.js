@@ -98,7 +98,7 @@ module.exports = {
             });
     },
     
-    findDeskEmpty: (req, res, next) => {
+    checkDeskEnable: (req, res, next) => {
         var deskId = req.params.deskId;
         let sql = "SELECT SOHOADON, KETTHUC FROM BH_tbd_BanHangLyLich WHERE MaBan = " + deskId;
         console.log(sql)
@@ -110,20 +110,6 @@ module.exports = {
             .catch(err => {
                 next(err);
             });
-    },
-
-    countFoodDesk: (req, res, next) => {
-        var deskId = req.params.deskId;
-        let sql = "SELECT BH_tbd_BanHangLyLich.TongMon FROM BH_tbd_BanHangLyLich WHERE MaBan = " + deskId;
-        console.log(sql)
-        let query = db.query(sql)
-            .then(results => {
-                console.log(results);
-                res.status(200).json(results);
-            })
-            .catch(err => {
-                next(err);
-            });
-    },
+    },    
 
 }   

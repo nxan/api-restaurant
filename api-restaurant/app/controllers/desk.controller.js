@@ -1,5 +1,9 @@
 const db = require('../db-config');
 
+var today = new Date();
+var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+var time = today.getHours() + ":" + today.getMinutes();
+var dateTime = date + ' ' + time;
 
 module.exports = {
     findAll: (req, res, next) => {
@@ -34,7 +38,7 @@ module.exports = {
         var data = req.body;
         var deskId = req.params.deskId;
         var sql = "UPDATE tbl_Ban SET ";
-        sql += "HienThi = " + 1 + ", TongMon = " + data.TongMon;
+        sql += "HienThi = " + 1 + ", TongMon = " + data.TongMon + ", GIOVAO = '" + time.toString() + "'"
         sql += " WHERE MaBan = " + deskId;
         console.log(sql);
         

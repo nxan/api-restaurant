@@ -30,10 +30,10 @@ module.exports = {
             });
     },
 
-    getOrderByDesk: (req, res, next) => {
-        var orderId = req.params.orderId;
+    getOrderDesk: (req, res, next) => {
+        var deskId = req.params.deskId;
         let sql = 'SELECT BH_tbd_BanHangChiTiet.*, tbl_MonAn.TenMon, tbl_MonAn.DonGiaBan FROM BH_tbd_BanHangChiTiet JOIN tbl_MonAn on tbl_MonAn.MaMon = BH_tbd_BanHangChiTiet.MaMon ';
-        sql += 'WHERE SOHOADON = ' + orderId;
+        sql += 'WHERE SOHOADON IN (SELECT SOHOADON FROM BH_tbd_BanHangLyLich WHERE MaBan = ' + deskId + ')';
         console.log(sql)
         let query = db.query(sql)
             .then(results => {
@@ -43,6 +43,7 @@ module.exports = {
             .catch(err => {
                 next(err);
             });
-    }
+    },
 
+    
 }   

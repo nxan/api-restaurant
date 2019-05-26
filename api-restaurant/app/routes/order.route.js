@@ -12,9 +12,7 @@ router.route('/pay')
     .put(orderController.placeOrder);
 
 router.route('/checkDesk/:deskId')
-    .get(orderController.findDeskEmpty);
+    .get(orderController.checkDeskEnable);
 
-router.route('/countFoodDesk/:deskId')   
-    .get(orderController.countFoodDesk);
 
 module.exports = router
