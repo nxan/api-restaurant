@@ -12,7 +12,7 @@ router.route('/pay')
     .put(orderController.placeOrder);
 
 router.route('/checkDesk/:deskId')
-    .get(orderController.findDeskEmpty);
+    .get(orderController.checkDesk);
 
 router.route('/updateQuantityFood')
     .put(orderController.updateQuantityFood);

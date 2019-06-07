@@ -98,7 +98,7 @@ module.exports = {
             });
     },
 
-    findDeskEmpty: (req, res, next) => {
+    checkDesk: (req, res, next) => {
         var deskId = req.params.deskId;
         let sql = "SELECT SOHOADON, KETTHUC FROM BH_tbd_BanHangLyLich WHERE MaBan = " + deskId;
         console.log(sql)
