@@ -4,7 +4,8 @@ const router = express.Router();
 const desksController = require('../controllers/desk.controller');
 
 router.route('/')
-    .get(desksController.findAll);
+    .get(desksController.findAll)
+    .post(desksController.create);
 
 router.route('/:place')
     .get(desksController.findByPlace);

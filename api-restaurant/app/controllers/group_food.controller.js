@@ -1,4 +1,5 @@
 const db = require('../db-config');
+const util = require('util')
 
 
 module.exports = {
@@ -14,4 +15,19 @@ module.exports = {
             });
     },
 
+    create: (req, res, next) => {
+        var data = req.body
+        let sql = "INSERT INTO tbl_Nhom VALUES ";
+        sql += util.format("(N'%s', '%s')",
+            data.TenNhom, true);
+        db.query(sql, [data])
+            .then(results => {
+                console.log(data);
+                res.status(201);
+                res.json({ message: 'Insert success!' });
+            })
+            .catch(err => {
+                next(err);
+            });
+    },
 }   

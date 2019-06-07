@@ -2,9 +2,8 @@ const db = require('../db-config');
 const util = require('util')
 
 var today = new Date();
-var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-var dateTime = date + ' ' + time;
 
 module.exports = {
     findAll: (req, res, next) => {
@@ -22,14 +21,14 @@ module.exports = {
     create: (req, res, next) => {
         var data = req.body
         let sql = "INSERT INTO BH_tbd_BanHangLyLich VALUES ";
-        sql += util.format("('%s', %d, %d, N'%s', N'%s', %d, N'%s', N'%s', '%s', N'%s', %d, %d, %d)", 
-                date, data.INHOADON, data.MaBan, data.GIOVAO, data.GIORA, null, data.TRANGTHAI, data.MaNhanVienBan, date, 
-                data.HostName, data.MaGiam, data.Huy, data.TongMon);
+        sql += util.format("('%s', %d, %d, N'%s', N'%s', %d, N'%s', N'%s', '%s', N'%s', %d, %d, %d)",
+            date, data.INHOADON, data.MaBan, data.GIOVAO, data.GIORA, null, data.TRANGTHAI, data.MaNhanVienBan, date,
+            data.HostName, data.MaGiam, data.Huy, data.TongMon);
         db.query(sql, [data])
             .then(results => {
                 console.log(data);
                 res.status(201);
-                res.json( {message: 'Insert success!'} );
+                res.json({ message: 'Insert success!' });
             })
             .catch(err => {
                 next(err);
@@ -38,26 +37,26 @@ module.exports = {
 
     update: (req, res, next) => {
         var data = req.body;
-        if(data) {
-            if(!data.SOHOADON) throw new Error("SOHOADON no provided");
+        if (data) {
+            if (!data.SOHOADON) throw new Error("SOHOADON no provided");
             var sql = "UPDATE BH_tbd_BanHangLyLich SET ";
 
-            if(data.INHOADON != null) {
+            if (data.INHOADON != null) {
                 sql += " INHOADON = " + data.INHOADON + ",";
                 isDataProvided = true;
             }
-            if(data.MaBan != null) {
+            if (data.MaBan != null) {
                 sql += " MaBan = " + data.MaBan + ",";
                 isDataProvided = true;
             }
-            if(data.GIORA != null) {
+            if (data.GIORA != null) {
                 sql += " GIORA = " + time + ",";
                 isDataProvided = true;
             }
-            if(data.KETTHUC != null) {
+            if (data.KETTHUC != null) {
                 sql += " KETTHUC = " + data.KETTHUC + ",";
             }
-            if(data.Huy != null) {
+            if (data.Huy != null) {
                 sql += " Huy = " + data.Huy + ",";
                 isDataProvided = true;
             }
@@ -69,7 +68,7 @@ module.exports = {
             .then(results => {
                 console.log(data);
                 res.status(201);
-                res.json( {message: 'Update success!'} );
+                res.json({ message: 'Update success!' });
             })
             .catch(err => {
                 next(err);
@@ -78,8 +77,8 @@ module.exports = {
 
     placeOrder: (req, res, next) => {
         var data = req.body;
-        if(data) {
-            if(!data.SOHOADON) throw new Error("SOHOADON no provided");
+        if (data) {
+            if (!data.SOHOADON) throw new Error("SOHOADON no provided");
             var sql = "UPDATE BH_tbd_BanHangLyLich SET ";
             sql += "INHOADON = " + 1 + ",";
             sql += " GIORA = '" + data.GIORA + "',";
@@ -92,14 +91,19 @@ module.exports = {
             .then(results => {
                 console.log(data);
                 res.status(201);
-                res.json( {message: 'Pay success!'} );
+                res.json({ message: 'Pay success!' });
             })
             .catch(err => {
                 next(err);
             });
     },
+<<<<<<< HEAD
+
+    findDeskEmpty: (req, res, next) => {
+=======
     
     checkDeskEnable: (req, res, next) => {
+>>>>>>> 42cb50f4bb0790f03684eb962e9a8b3838029275
         var deskId = req.params.deskId;
         let sql = "SELECT SOHOADON, KETTHUC FROM BH_tbd_BanHangLyLich WHERE MaBan = " + deskId;
         console.log(sql)
