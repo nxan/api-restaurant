@@ -1,13 +1,10 @@
 const db = require('../db-config');
-<<<<<<< HEAD
 const util = require('util')
-=======
 
 var today = new Date();
-var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 var time = today.getHours() + ":" + today.getMinutes();
 var dateTime = date + ' ' + time;
->>>>>>> 42cb50f4bb0790f03684eb962e9a8b3838029275
 
 module.exports = {
     findAll: (req, res, next) => {
@@ -60,11 +57,11 @@ module.exports = {
         sql += "HienThi = " + 1 + ", TongMon = " + data.TongMon + ", GIOVAO = '" + data.GIOVAO + "'"
         sql += " WHERE MaBan = " + deskId;
         console.log(sql);
-        
+
         db.query(sql)
             .then(results => {
                 res.status(201);
-                res.json( {message: 'Update success!'} );
+                res.json({ message: 'Update success!' });
             })
             .catch(err => {
                 next(err);

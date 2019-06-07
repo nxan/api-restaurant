@@ -97,13 +97,8 @@ module.exports = {
                 next(err);
             });
     },
-<<<<<<< HEAD
 
     findDeskEmpty: (req, res, next) => {
-=======
-    
-    checkDeskEnable: (req, res, next) => {
->>>>>>> 42cb50f4bb0790f03684eb962e9a8b3838029275
         var deskId = req.params.deskId;
         let sql = "SELECT SOHOADON, KETTHUC FROM BH_tbd_BanHangLyLich WHERE MaBan = " + deskId;
         console.log(sql)
@@ -115,18 +110,18 @@ module.exports = {
             .catch(err => {
                 next(err);
             });
-    },   
-    
+    },
+
     updateQuantityFood: (req, res, next) => {
         var data = req.body;
         var sql = "UPDATE BH_tbd_BanHangLyLich SET ";
         sql += "TongMon = " + data.TongMon;
         sql += " WHERE SOHOADON = " + data.SOHOADON;
-        console.log(sql);        
+        console.log(sql);
         db.query(sql)
             .then(results => {
                 res.status(201);
-                res.json( {message: 'Update success!'} );
+                res.json({ message: 'Update success!' });
             })
             .catch(err => {
                 next(err);
