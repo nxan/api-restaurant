@@ -5,7 +5,8 @@ const desksController = require('../controllers/desk.controller');
 
 router.route('/')
     .get(desksController.findAll)
-    .post(desksController.create);
+    .post(desksController.create)
+    .put(desksController.update);
 
 router.route('/:place')
     .get(desksController.findByPlace);

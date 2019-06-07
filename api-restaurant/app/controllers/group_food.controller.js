@@ -30,4 +30,21 @@ module.exports = {
                 next(err);
             });
     },
+
+    update: (req, res, next) => {
+        var data = req.body;
+        var sql = "UPDATE tbl_Nhom SET ";
+        sql += "TenNhom = '" + data.TenNhom + "',";
+        sql += " HienThi = " + data.HienThi;
+        sql += " WHERE IDNhom = " + data.IDNhom;
+        console.log(sql);
+        db.query(sql)
+            .then(results => {
+                res.status(201);
+                res.json({ message: 'Update success!' });
+            })
+            .catch(err => {
+                next(err);
+            });
+    },
 }   

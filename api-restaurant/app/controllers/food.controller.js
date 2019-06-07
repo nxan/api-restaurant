@@ -44,4 +44,24 @@ module.exports = {
             });
     },
 
+    update: (req, res, next) => {
+        var data = req.body;
+        var sql = "UPDATE tbl_MonAn SET ";
+        sql += "TenMon = '" + data.TenNhom + "',";
+        sql += " IDNhom = " + data.IDNhom + ",";
+        sql += " HienThi = " + data.HienThi + ",";
+        sql += " DonVi = " + data.DonVi + ",";
+        sql += " DonGiaBan = " + data.DonGiaBan;
+        sql += " WHERE MaMon = " + data.MaMon;
+        console.log(sql);
+        db.query(sql)
+            .then(results => {
+                res.status(201);
+                res.json({ message: 'Update success!' });
+            })
+            .catch(err => {
+                next(err);
+            });
+    },
+
 }   

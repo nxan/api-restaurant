@@ -5,7 +5,8 @@ const groupFoodController = require('../controllers/group_food.controller');
 
 router.route('/')
     .get(groupFoodController.findAll)
-    .post(groupFoodController.create);
+    .post(groupFoodController.create)
+    .put(groupFoodController.update);
 
 
 module.exports = router

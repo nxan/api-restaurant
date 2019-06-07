@@ -50,6 +50,23 @@ module.exports = {
             });
     },
 
+    update: (req, res, next) => {
+        var data = req.body;
+        var sql = "UPDATE tbl_Ban SET ";
+        sql += "TenBan = '" + data.TenBan + "',";
+        sql += " Khu = " + data.Khu;
+        sql += " WHERE MaBan = " + data.MaBan;
+        console.log(sql);
+        db.query(sql)
+            .then(results => {
+                res.status(201);
+                res.json({ message: 'Update success!' });
+            })
+            .catch(err => {
+                next(err);
+            });
+    },
+
     updateDeskFull: (req, res, next) => {
         var data = req.body;
         var deskId = req.params.deskId;

@@ -16,8 +16,8 @@ app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use('/desks', desks);
-app.use('/group_food', groupFood);
+app.use('/desk', desks);
+app.use('/groupfood', groupFood);
 app.use('/food', food);
 app.use('/order', order);
 app.use('/orderdetail', orderDetail);
