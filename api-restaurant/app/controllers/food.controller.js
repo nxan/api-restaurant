@@ -47,9 +47,8 @@ module.exports = {
     update: (req, res, next) => {
         var data = req.body;
         var sql = "UPDATE tbl_MonAn SET ";
-        sql += "TenMon = '" + data.TenNhom + "',";
+        sql += "TenMon = N'" + data.TenMon + "',";
         sql += " IDNhom = " + data.IDNhom + ",";
-        sql += " HienThi = " + data.HienThi + ",";
         sql += " DonVi = " + data.DonVi + ",";
         sql += " DonGiaBan = " + data.DonGiaBan;
         sql += " WHERE MaMon = " + data.MaMon;
@@ -63,5 +62,21 @@ module.exports = {
                 next(err);
             });
     },
+
+    deleteFood: (req, res, next) => {
+        var foodId = req.params.foodId;
+        var sql = "DELETE FROM tbl_MonAn";
+        sql += " WHERE MaMon = " + foodId;
+        console.log(sql);
+        db.query(sql)
+            .then(results => {
+                res.status(201);
+                res.json({ message: 'Delete success!' });
+            })
+            .catch(err => {
+                next(err);
+            });
+    },
+
 
 }   

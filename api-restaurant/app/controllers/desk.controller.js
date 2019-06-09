@@ -8,7 +8,7 @@ var dateTime = date + ' ' + time;
 
 module.exports = {
     findAll: (req, res, next) => {
-        let sql = "SELECT * FROM tbl_Ban";
+        let sql = "SELECT tbl_Ban.*, tbl_Khu.TenKhu FROM tbl_Ban JOIN tbl_Khu ON tbl_Ban.Khu = tbl_Khu.MaKhu";
         console.log(sql)
         let query = db.query(sql)
             .then(results => {
@@ -53,7 +53,7 @@ module.exports = {
     update: (req, res, next) => {
         var data = req.body;
         var sql = "UPDATE tbl_Ban SET ";
-        sql += "TenBan = '" + data.TenBan + "',";
+        sql += "TenBan = N'" + data.TenBan + "',";
         sql += " Khu = " + data.Khu;
         sql += " WHERE MaBan = " + data.MaBan;
         console.log(sql);
@@ -85,6 +85,24 @@ module.exports = {
             });
     },
 
+    updateQuantityFoodDeskFull: (req, res, next) => {
+        var data = req.body;
+        var deskId = req.params.deskId;
+        var sql = "UPDATE tbl_Ban SET ";
+        sql += "HienThi = " + 1 + ", TongMon = " + data.TongMon;
+        sql += " WHERE MaBan = " + deskId;
+        console.log(sql);
+
+        db.query(sql)
+            .then(results => {
+                res.status(201);
+                res.json({ message: 'Update success!' });
+            })
+            .catch(err => {
+                next(err);
+            });
+    },
+
     updateDeskEmpty: (req, res, next) => {
         var data = req.body;
         var deskId = req.params.deskId;
@@ -101,7 +119,21 @@ module.exports = {
             .catch(err => {
                 next(err);
             });
-    },
+    },    
 
+    deleteDesk: (req, res, next) => {
+        var deskId = req.params.deskId;
+        var sql = "DELETE FROM tbl_Ban";
+        sql += " WHERE MaBan = " + deskId;
+        console.log(sql);
+        db.query(sql)
+            .then(results => {
+                res.status(201);
+                res.json({ message: 'Delete success!' });
+            })
+            .catch(err => {
+                next(err);
+            });
+    },
 
 }   

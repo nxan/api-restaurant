@@ -60,5 +60,21 @@ module.exports = {
                 next(err);
             });
     },
+
+    deleteFood: (req, res, next) => {
+        var orderId = req.params.orderId;
+        var foodId = req.params.foodId;
+        var sql = "DELETE FROM BH_tbd_BanHangChiTiet";
+        sql += " WHERE SOHOADON = " + orderId + " AND MaMon = " + foodId;
+        console.log(sql);
+        db.query(sql)
+            .then(results => {
+                res.status(201);
+                res.json({ message: 'Delete success!' });
+            })
+            .catch(err => {
+                next(err);
+            });
+    },
     
 }   

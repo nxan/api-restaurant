@@ -34,7 +34,7 @@ module.exports = {
     update: (req, res, next) => {
         var data = req.body;
         var sql = "UPDATE tbl_Nhom SET ";
-        sql += "TenNhom = '" + data.TenNhom + "',";
+        sql += "TenNhom = N'" + data.TenNhom + "',";
         sql += " HienThi = " + data.HienThi;
         sql += " WHERE IDNhom = " + data.IDNhom;
         console.log(sql);
@@ -42,6 +42,21 @@ module.exports = {
             .then(results => {
                 res.status(201);
                 res.json({ message: 'Update success!' });
+            })
+            .catch(err => {
+                next(err);
+            });
+    },
+
+    deleteGroup: (req, res, next) => {
+        var groupId = req.params.groupId;
+        var sql = "DELETE FROM tbl_Nhom";
+        sql += " WHERE IDNhom = " + groupId;
+        console.log(sql);
+        db.query(sql)
+            .then(results => {
+                res.status(201);
+                res.json({ message: 'Delete success!' });
             })
             .catch(err => {
                 next(err);

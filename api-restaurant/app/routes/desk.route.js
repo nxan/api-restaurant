@@ -17,5 +17,10 @@ router.route('/updateDeskHasPeople/:deskId')
 router.route('/updateDeskEmpty/:deskId')
     .put(desksController.updateDeskEmpty);
 
+router.route('/updateQuantityFood/:deskId')
+    .put(desksController.updateQuantityFoodDeskFull);
+
+router.route('/:deskId')
+    .delete(desksController.deleteDesk);
 
 module.exports = router

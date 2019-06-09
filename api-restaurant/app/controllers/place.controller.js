@@ -34,13 +34,28 @@ module.exports = {
     update: (req, res, next) => {
         var data = req.body;
         var sql = "UPDATE tbl_Khu SET ";
-        sql += "TenKhu = '" + data.TenKhu + "'" ;
+        sql += "TenKhu = N'" + data.TenKhu + "'" ;
         sql += " WHERE MaKhu = " + data.MaKhu;
         console.log(sql);
         db.query(sql)
             .then(results => {
                 res.status(201);
                 res.json({ message: 'Update success!' });
+            })
+            .catch(err => {
+                next(err);
+            });
+    },
+
+    deletePlace: (req, res, next) => {
+        var placeId = req.params.placeId;
+        var sql = "DELETE FROM tbl_Khu";
+        sql += " WHERE MaKhu = " + placeId;
+        console.log(sql);
+        db.query(sql)
+            .then(results => {
+                res.status(201);
+                res.json({ message: 'Delete success!' });
             })
             .catch(err => {
                 next(err);

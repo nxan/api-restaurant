@@ -8,5 +8,7 @@ router.route('/')
     .post(groupFoodController.create)
     .put(groupFoodController.update);
 
+router.route('/:groupId')
+    .delete(groupFoodController.deleteGroup);
 
 module.exports = router

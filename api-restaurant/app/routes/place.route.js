@@ -8,5 +8,8 @@ router.route('/')
     .post(placeController.create)
     .put(placeController.update);
 
+router.route('/:placeId')
+    .delete(placeController.deletePlace);
+
 
 module.exports = router
