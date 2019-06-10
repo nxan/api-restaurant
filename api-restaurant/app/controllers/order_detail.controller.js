@@ -77,4 +77,16 @@ module.exports = {
             });
     },
     
+    findByOrderId: (req, res, next) => {
+        var orderId = req.params.orderId;
+        let sql = 'SELECT BH_tbd_BanHangChiTiet.*, tbl_MonAn.TenMon, tbl_MonAn.DonGiaBan FROM BH_tbd_BanHangChiTiet JOIN tbl_MonAn ON BH_tbd_BanHangChiTiet.MaMon = tbl_MonAn.MaMon WHERE SOHOADON = ' + orderId;
+        let query = db.query(sql)
+            .then(results => {
+                console.log(results);
+                res.status(200).json(results);
+            })
+            .catch(err => {
+                next(err);
+            });
+    },
 }   

@@ -17,5 +17,8 @@ router.route('/checkDesk/:deskId')
 router.route('/updateQuantityFood')
     .put(orderController.updateQuantityFood);
 
+router.route('/countCreated')
+    .get(orderController.countCreated);
+
 
 module.exports = router

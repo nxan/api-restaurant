@@ -7,7 +7,7 @@ var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(
 
 module.exports = {
     findAll: (req, res, next) => {
-        let sql = 'SELECT * FROM BH_tbd_BanHangLyLich';
+        let sql = 'SELECT BH_tbd_BanHangLyLich.*, tbl_Ban.TenBan FROM BH_tbd_BanHangLyLich JOIN tbl_Ban ON tbl_Ban.MaBan = BH_tbd_BanHangLyLich.MaBan';
         let query = db.query(sql)
             .then(results => {
                 console.log(results);
@@ -127,5 +127,17 @@ module.exports = {
                 next(err);
             });
     },    
+
+    countCreated: (req, res, next) => {
+        let sql = 'SELECT COUNT(NGAYHOADON), NGAYHOADON FROM BH_tbd_BanHangLyLich GROUP BY NGAYHOADON';
+        let query = db.query(sql)
+            .then(results => {
+                console.log(results);
+                res.status(200).json(results);
+            })
+            .catch(err => {
+                next(err);
+            });
+    },
 
 }   

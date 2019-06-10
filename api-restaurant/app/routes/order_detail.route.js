@@ -14,4 +14,7 @@ router.route('/getOne/:deskId')
 router.route('/:orderId/:foodId')
     .delete(orderDetailController.deleteFood);
 
+router.route('/findByOrderId/:orderId')
+    .get(orderDetailController.findByOrderId);
+
 module.exports = router
