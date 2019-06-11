@@ -11,6 +11,7 @@ const food = require('./app/routes/food.route');
 const order = require('./app/routes/order.route');
 const orderDetail = require('./app/routes/order_detail.route');
 const place = require('./app/routes/place.route');
+const user = require('./app/routes/user.route');
 
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -22,6 +23,8 @@ app.use('/food', food);
 app.use('/order', order);
 app.use('/orderdetail', orderDetail);
 app.use('/place', place);
+app.use('/user', user);
+
 
 app.use((req, res, next) => {
     const err = new Error('Not found!');
