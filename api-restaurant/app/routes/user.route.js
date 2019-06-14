@@ -9,5 +9,8 @@ router.route('/')
 router.route('/auth')
     .post(userController.auth);
 
+router.route('/:email')
+    .get(userController.findEmail);
+
 
 module.exports = router

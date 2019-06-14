@@ -1,57 +1,66 @@
 const db = require('../db-config');
 const util = require('util');
 const bcrypt = require('bcryptjs');
-const User = require('../model/User');
 
 module.exports = {
     create: async (req, res, next) => {
-        const { email, password, name } = req.body;
-        console.log(req.body);
-        let user = await User.findOne({
-            where: {
-            email: email
-            },
-        });
-
-        if (user) {
-            return res.status(400).json({ errors: [{ msg: 'User already exists' }] })
-        }
-
-        user = new User({
-            email, password, name
-        });
-
+        var data = req.body
         const salt = await bcrypt.genSalt(10);
-        user.password = await bcrypt.hash(password, salt);
-        await user.save();
-        res.json({ message: 'Sign Up success!'});
-        res.status(200);        
+        var hashPassword = await bcrypt.hash(data.password, salt);
+        let sql = "INSERT INTO tbl_User VALUES ";
+        sql += util.format("('%s', '%s', N'%s')",
+            data.email, hashPassword, data.name);
+        db.query(sql, [data])
+            .then(results => {
+                console.log(data);
+                res.status(201);
+                res.json({ message: 'Insert success!' });
+            })
+            .catch(err => {
+                next(err);
+            });
     },
 
-    auth: async (req, res, next) => {
-        const { email, password } = req.body;
-
-        try {
-            console.log(req.body);
-            let user = await User.findOne({
-                where: {
-                    email: email
-                },
+    findEmail: (req, res, next) => {
+        var email = req.params.email;
+        let sql = "SELECT * FROM tbl_User WHERE email = '" + email + "'";
+        console.log(sql)
+        let query = db.query(sql)
+            .then(results => {
+                console.log(results)
+                if(results.rowsAffected[0] === 1) {
+                    res.status(400).json(results);
+                } else {                    
+                    res.status(200).json(results);                    
+                }
+            })
+            .catch(err => {
+                next(err);
             });
-            if (!user) {
-                return res.status(400).json({ errors: [{ msg: 'Invalid email or password' }] })
-            }
-            const isMatch = await bcrypt.compare(password, user.password);
+    },    
 
-            if (!isMatch) {
-                return res.status(400).json({ errors: [{ msg: 'Invalid email or password' }] })
-            }            
-            res.status(201);
-            res.json({ message: 'Login success!', login: true });
-        } catch (err) {
-            console.error(err.message);
-            res.status(500).send('Server error');
-        }
+    auth: async (req, res, next) => {
+        var data = req.body;
+        let sql = "SELECT * FROM tbl_User WHERE email = '" + data.email + "'";
+        console.log(sql)
+        db.query(sql)
+            .then(results => {
+                console.log(results)
+                if(results.rowsAffected[0] === 1) {    
+                    bcrypt.compare(req.body.password, results.recordset[0]['password'], function (err, result) {                
+                        if(result == true) {
+                            res.status(200).json({msg: "Login success"});
+                        } else {
+                            res.status(400).json({msg: "Invalid password"});
+                        }
+                    });
+                } else {                    
+                    res.status(400).json({msg: "Invalid email"});                    
+                }
+            })
+            .catch(err => {
+                next(err);
+            });
     },
     
     
