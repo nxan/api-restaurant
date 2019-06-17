@@ -62,6 +62,25 @@ module.exports = {
                 next(err);
             });
     },
+
+    update: async (req, res, next) => {
+        var data = req.body;
+        const salt = await bcrypt.genSalt(10);
+        var hashPassword = await bcrypt.hash(data.password, salt);
+        var sql = "UPDATE tbl_User SET ";
+        sql += "password = '" + hashPassword + "', " ;
+        sql += "name = N'" + data.name + "'" ;
+        sql += " WHERE email = '" + data.email + "'";
+        console.log(sql);
+        db.query(sql)
+            .then(results => {
+                res.status(201);
+                res.json({ message: 'Update success!' });
+            })
+            .catch(err => {
+                next(err);
+            });
+    },
     
     
 }
