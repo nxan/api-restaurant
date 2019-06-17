@@ -1,6 +1,10 @@
 const db = require('../db-config');
 const util = require('util')
 
+var today = new Date();
+var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+
 module.exports = {
     findAll: (req, res, next) => {
         let sql = 'SELECT BH_tbd_BanHangChiTiet.*, tbl_MonAn.TenMon, tbl_MonAn.DonGiaBan, BH_tbd_BanHangLyLich.MaBan FROM BH_tbd_BanHangChiTiet JOIN tbl_MonAn on tbl_MonAn.MaMon = BH_tbd_BanHangChiTiet.MaMon JOIN BH_tbd_BanHangLyLich on BH_tbd_BanHangLyLich.SOHOADON = BH_tbd_BanHangChiTiet.SOHOADON';
@@ -17,9 +21,10 @@ module.exports = {
     create: (req, res, next) => {
         var data = req.body
         let sql = "INSERT INTO BH_tbd_BanHangChiTiet VALUES ";
-        sql += util.format("('%s', %d, %d, %d)", 
-                data.SOHOADON, data.MaMon, data.SoLuongTra, data.SoLuong);
-        db.query(sql, [data])
+        sql += util.format("('%s', %d, %d, %d, '%s')", 
+                data.SOHOADON, data.MaMon, data.SoLuongTra, data.SoLuong, date + " " + time);
+                console.log(sql);
+        db.query(sql, [data])        
             .then(results => {
                 console.log(data);
                 res.status(201);

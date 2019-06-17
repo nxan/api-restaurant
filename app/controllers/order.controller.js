@@ -23,7 +23,7 @@ module.exports = {
         let sql = "INSERT INTO BH_tbd_BanHangLyLich VALUES ";
         sql += util.format("('%s', %d, %d, N'%s', N'%s', %d, N'%s', N'%s', '%s', N'%s', %d, %d, %d)",
             date, data.INHOADON, data.MaBan, data.GIOVAO, data.GIORA, null, data.TRANGTHAI, data.MaNhanVienBan, date,
-            data.HostName, data.MaGiam, data.Huy, data.TongMon);
+            data.HostName, data.MaGiam, data.Huy, data.TongMon);        
         db.query(sql, [data])
             .then(results => {
                 console.log(data);
