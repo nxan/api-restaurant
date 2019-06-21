@@ -20,5 +20,8 @@ router.route('/updateQuantityFood')
 router.route('/countCreated')
     .get(orderController.countCreated);
 
+router.route('/print/:deskId/:timeEnd')
+    .get(orderController.findOrderByDeskEnd);
+
 
 module.exports = router

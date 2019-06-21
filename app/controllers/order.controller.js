@@ -140,4 +140,19 @@ module.exports = {
             });
     },
 
+    findOrderByDeskEnd: (req, res, next) => {
+        var deskId = req.params.deskId;
+        var timeEnd = req.params.timeEnd;
+        let sql = "SELECT BH_tbd_BanHangLyLich.*, tbl_Ban.TenBan FROM BH_tbd_BanHangLyLich JOIN tbl_Ban ON tbl_Ban.MaBan = BH_tbd_BanHangLyLich.MaBan WHERE BH_tbd_BanHangLyLich.MaBan = " + deskId + " AND GIORA = '" + timeEnd + "'";
+        console.log(sql);
+        let query = db.query(sql)
+            .then(results => {
+                console.log(results);
+                res.status(200).json(results);
+            })
+            .catch(err => {
+                next(err);
+            });
+    },
+
 }   
