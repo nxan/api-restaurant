@@ -138,12 +138,11 @@ module.exports = {
 
     updateDeskNotFood: (req, res, next) => {
         var data = req.body;
-        var deskId = req.params.deskId;
+        var deskId = req.params.deskId;        
         var sql = "UPDATE tbl_Ban SET ";
         sql += "HienThi = " + 0 + ", TongMon = " + 0 + ", GIOVAO = N'" + data.GIOVAO + "'"
         sql += " WHERE MaBan = " + deskId;
         console.log(sql);
-
         db.query(sql)
             .then(results => {
                 res.status(201);

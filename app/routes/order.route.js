@@ -6,7 +6,10 @@ const orderController = require('../controllers/order.controller');
 router.route('/')
     .get(orderController.findAll)
     .put(orderController.update)
-    .post(orderController.create);
+    .post(orderController.create)
+
+router.route('/:orderId')
+    .delete(orderController.delete);
 
 router.route('/pay')
     .put(orderController.placeOrder);

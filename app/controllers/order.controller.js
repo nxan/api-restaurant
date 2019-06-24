@@ -75,6 +75,21 @@ module.exports = {
             });
     },
 
+    delete: (req, res, next) => {
+        var orderId = req.params.orderId;
+        var sql = "DELETE FROM BH_tbd_BanHangLyLich";
+        sql += " WHERE SOHOADON = " + orderId;
+        console.log(sql);
+        db.query(sql)
+            .then(results => {
+                res.status(201);
+                res.json({ message: 'Delete success!' });
+            })
+            .catch(err => {
+                next(err);
+            });
+    },
+
     placeOrder: (req, res, next) => {
         var data = req.body;
         if (data) {
@@ -154,5 +169,6 @@ module.exports = {
                 next(err);
             });
     },
+    
 
 }   
