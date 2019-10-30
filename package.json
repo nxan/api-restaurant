@@ -20,7 +20,7 @@
     "morgan": "^1.9.1",
     "mssql": "^5.1.0",
     "nodemon": "^1.19.1",
-    "sequelize": "^5.8.8",
+    "sequelize": "^5.15.1",
     "util": "^0.12.0"
   }
 }
